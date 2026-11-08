@@ -1,5 +1,7 @@
 #include "Facilities.h"
 
+using namespace std;
+
 //constructor
 Facilities::Facilities()
 {
@@ -49,6 +51,6 @@ Facilities& Facilities::operator=(const Facilities& rhs){
     return *this;
 }
 
-void Facilities::displayFac(){
+void Facilities::displayFac() const{
     cout<<"Loaded facility -> "<<facilityID<<'|'<<facilityName<<'|'<<buildingName<<'|'<<category<<endl;
 }
