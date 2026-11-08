@@ -4,6 +4,7 @@
 #ifndef Facilities_h
 #define Facilities_h
 
+#include <iostream>
 #include <string>
 using namespace std;
 
@@ -28,6 +29,9 @@ class Facilities{
 
         //copy constructor
         Facilities& operator=(const Facilities& rhs);
+
+        //display
+        void displayFac();
 
     private:
 

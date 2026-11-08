@@ -1,4 +1,3 @@
-//Samuel Smethers
 #include "Facilities.h"
 
 //constructor
@@ -48,4 +47,8 @@ Facilities& Facilities::operator=(const Facilities& rhs){
         category = rhs.getCat();
     }
     return *this;
+}
+
+void Facilities::displayFac(){
+    cout<<"Loaded facility -> "<<facilityID<<'|'<<facilityName<<'|'<<buildingName<<'|'<<category<<endl;
 }
