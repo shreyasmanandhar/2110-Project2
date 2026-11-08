@@ -1,11 +1,18 @@
 //Samuel Smethers
 //Linked list to use in hash table to chain in separate bins
 #include "SeparateChaining.h"
+#include <iostream>
+
+using namespace std;
 
 Chain::Chain(){
     front = nullptr;
     rear = nullptr;
     count = 0;
+}
+
+Chain::~Chain(){
+    RemoveChain();
 }
 
 void Chain::RemoveChain()
@@ -15,6 +22,15 @@ void Chain::RemoveChain()
         Node* next = current->next;
         delete current;
         current = next;
+    }
+    front = nullptr;
+    rear = nullptr;
+    count = 0;
+}
+
+void Chain::printAll() const{
+    for (Node* current = front; current != nullptr; current = current->next){
+        cout<<current->data.getID()<<'|'<<current->data.getFacName()<<'|'<<current->data.getBuildName()<<'|'<<current->data.getCat()<<endl;
     }
 }
 
