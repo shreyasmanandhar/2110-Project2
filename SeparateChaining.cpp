@@ -8,7 +8,7 @@ Chain::Chain(){
     count = 0;
 }
 
-Chain::~Chain()
+void Chain::RemoveChain()
 {
     Node* current = front;
     while (current !=nullptr){
@@ -45,4 +45,14 @@ Facilities* Chain::searchID(string inputID)
         }
     }
     return nullptr;
+}
+
+bool Chain::isDuplicate(string tempID)
+{
+    for (Node* current = front; current!= nullptr; current = current->next){
+        if (tempID == current->data.getID()){
+            return true;
+        }
+    }
+    return false;
 }

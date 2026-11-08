@@ -5,6 +5,16 @@
 
 #include "Facilities.h"
 
+struct Node{
+    Facilities data;
+    Node* next;
+    Node(const Facilities& tempFac)
+    {
+        data = tempFac;
+        next = nullptr;
+    }
+};
+
 class Chain{
 
     public:
@@ -13,7 +23,7 @@ class Chain{
     Chain();
 
     //destructor
-    ~Chain();
+    void RemoveChain();
 
     //add facility to end list
     void addFacility(const Facilities& tempFac);
@@ -24,17 +34,11 @@ class Chain{
     //search for ID in chain
     Facilities* searchID(string inputID);
 
+    //check for duplicate
+    bool isDuplicate(string tempID);
+
     private:
 
-        struct Node{
-            Facilities data;
-            Node* next;
-            Node(const Facilities& tempFac)
-            {
-                data = tempFac;
-                next = nullptr;
-            }
-        };
         Node* front;
         Node* rear;
         int count;
