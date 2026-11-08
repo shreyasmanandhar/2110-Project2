@@ -7,6 +7,7 @@
 #include "CampusGraph.h"
 #include "Utils.h"
 // Member A --- #include facility / hash table headers here
+#include "HashTable.h"
 #include "DepartmentTree.h"
 
 using namespace std;
@@ -14,17 +15,17 @@ using namespace std;
 // print M1 menu
 static void printMenu() {
     cout << "\n===== Campus Menu =====\n"
-         << "1. View all facilities\n"
-         << "2. Search facility by ID\n"
-         << "3. View campus graph\n"
-         << "4. Display graph counts and degrees\n"
-         << "5. Find reachable buildings (BFS)\n"
-         << "6. Add department\n"
-         << "7. Search department\n"
-         << "8. Display department hierarchy\n"
-         << "9. Run preorder traversal\n"
-         << "10. Exit\n"
-         << "Choice: ";
+        << "1. View all facilities\n"
+        << "2. Search facility by ID\n"
+        << "3. View campus graph\n"
+        << "4. Display graph counts and degrees\n"
+        << "5. Find reachable buildings (BFS)\n"
+        << "6. Add department\n"
+        << "7. Search department\n"
+        << "8. Display department hierarchy\n"
+        << "9. Run preorder traversal\n"
+        << "10. Exit\n"
+        << "Choice: ";
 }
 
 // read choice 1-10; -1 invalid, -2 EOF
@@ -65,12 +66,14 @@ int main(int argc, char* argv[]) {
 
     CampusGraph graph;
     // Member A --- declare facility list + HashTable here
+    HashTable facilities;
     DepartmentTree tree;
 
     // load order: buildings, connections, facilities, departments
     graph.loadBuildings(dir + "buildings.txt");
     graph.loadConnections(dir + "connections.txt");
     // Member A --- load dir + "facilities.txt" here (pass graph for building checks)
+    facilities.loadFacilities(dir + "facilities.txt", graph);
     tree.loadDepartments(dir + "departments.txt");
 
     while (true) {
@@ -85,11 +88,12 @@ int main(int argc, char* argv[]) {
         switch (choice) {
             case 1:
                 // Member A --- view all facilities
-                cout << "Not implemented yet.\n";
+                facilities.displayAll();
                 break;
             case 2:
                 // Member A --- search facility by ID
-                cout << "Not implemented yet.\n";
+                if (readName("Enter facility ID: ", name))
+                    facilities.findID(name);
                 break;
             case 3:
                 graph.displayGraph();
