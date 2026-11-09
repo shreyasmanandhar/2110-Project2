@@ -1,0 +1,150 @@
+Test Results - Milestone 1
+Format: test # | description | input | expected | actual | pass/fail
+
+---------------- 10.1 FILE LOADING (graph files) ----------------
+
+B1 | Valid sample load | ./campus
+   Expected: buildings 7 accepted 0 rejected; connections 6 accepted 0 rejected
+   Actual:   same
+   PASS
+
+B2 | Blank lines, comment lines, too few / too many fields | ./campus testdata/graph_errors
+   Expected: blanks + "#" lines skipped; "Gym|Extra" rejected (2 fields); "Library" rejected (1 field); "Library|Gym|Science Building" rejected (3 fields)
+   Actual:   buildings line 6 "expected 1 field, found 2"; connections line 7 "found 1", line 8 "found 3"
+   PASS
+
+B3 | Missing file | ./campus testdata/missing_connections
+   Expected: error naming connections.txt, treated as empty, program continues
+   Actual:   "Error: cannot open file .../connections.txt (treated as empty)", 0 accepted 0 rejected, menu shows, both buildings "(no connections)"
+   PASS
+
+B4 | Duplicate building names differing by case | ./campus testdata/graph_errors
+   Expected: "LIBRARY" and "student union" rejected; first spelling kept
+   Actual:   line 5 duplicate "LIBRARY", line 10 duplicate "student union"; graph shows "Library", "Student Union"
+   PASS
+
+B5 | Unknown building in connections | ./campus testdata/graph_errors
+   Expected: "Library|Moon Base" rejected, names Moon Base
+   Actual:   line 6 unknown building "Moon Base"
+   PASS
+
+B6 | Duplicate and reversed connections | ./campus testdata/graph_errors
+   Expected: "Student Union|Library" (reversed) and "Library|Student Union" (dup) rejected
+   Actual:   lines 4 and 5 duplicate connection; 3 accepted, 8 rejected total
+   PASS
+
+B7 | [extra, Final 10.1] Self-connection, empty field, CRLF, whitespace, # in name
+   Input: ./campus testdata/graph_errors
+   Expected: "Science Building|Science Building" rejected; "Library|" rejected; CRLF file loads; padded names trimmed; "Room #5 Hall" accepted
+   Actual:   line 11 self-connection; line 9 empty name; buildings 5 accepted; "Room #5 Hall" and "Science Building" connected
+   PASS
+
+Member A --- add facility loading tests (dup IDs by case, unknown building) here
+
+A6 | duplicate ID differ by capitalization on load of facilities | f001|Main Reading 	Room|Library|Library
+	Expected: Not accepted, duplicate ID -> F001|Main Reading Room|Library|Library
+	Actual: Not accepted, duplicate ID -> F001|Main Reading Room|Library|Library
+	PASS
+
+
+Member C --- add department loading tests (unknown parent) here
+
+---------------- 10.2 HASH TABLE AND SEARCH ----------------
+A1 | lowercase search | f001 
+	Expected: Found -> F001|Main Reading Room|Library|Library
+	Actual: Found -> F001|Main Reading Room|Library|Library
+	PASS
+
+A2.0 | invalid format search | FO01 
+	Expected: Search cancelled invalid input
+	Actual: Valid ID FO01 not found in table.
+	FAIL
+
+A2.1 | invalid format search | 001
+	Expected: Search cancelled invalid input
+	Actual: Valid ID 001 not found in table.
+	FAIL
+
+A3 | not found ID search | F999
+	Expected: Valid ID F999 not found in table.
+	Answer: Valid ID F999 not found in table.
+	PASS
+
+A4 | hash collision | F010|Research Help Desk|Library|Library
+	Expected: data/facilities.txt: 10 accepted, 0 rejected (capacity 11, entries 10, collisions 1)
+	Actual: data/facilities.txt: 10 accepted, 0 rejected (capacity 11, entries 10, collisions 1)
+	PASS
+
+A5 | duplicate key attempt | F001|Main Reading Room|Library|Library
+	Expected: Not accepted, duplicate ID -> F001|Main Reading Room|Library|Library
+	Actual: Not accepted, duplicate ID -> F001|Main Reading Room|Library|Library
+	PASS
+
+
+
+---------------- 10.3 GRAPH AND BFS ----------------
+
+B8 | View campus graph | menu 3, sample data
+   Expected: 7 buildings in file order, neighbors in insertion order, Observatory "(no connections)"
+   Actual:   matches
+   PASS
+
+B9 | Counts and degrees | menu 4, sample data
+   Expected: Library 2, Student Union 3, Science 2, Engineering 1, Business 2, Gym 2, Observatory 0; totals 7 and 6
+   Actual:   matches
+   PASS
+
+B10 | BFS from connected building | menu 5, "Library"
+   Expected: Library 0, Student Union 1, Business Building 1, Science Building 2, Gym 2, Engineering Building 3; Reachable: 6 of 7
+   Actual:   matches
+   PASS
+
+B11 | BFS from isolated building | menu 5, "Observatory"
+   Expected: Observatory (distance 0); Reachable: 1 of 7
+   Actual:   matches
+   PASS
+
+B12 | BFS unknown start | menu 5, "Moon Base"
+   Expected: error naming building, return to menu
+   Actual:   Error: unknown building "Moon Base"
+   PASS
+
+B13 | Name matching (case, trim, internal spaces) | menu 5
+   Input:    "   library  ", "STUDENT UNION", "Student  Union" (two spaces)
+   Expected: first two found; third unknown
+   Actual:   matches
+   PASS
+
+B14 | Multiple connected components | ./campus testdata/graph_components
+   Expected: BFS North Hall 4 of 7; Annex B 2 of 7; Tower 1 of 7
+   Actual:   matches
+   PASS
+
+B15 | Empty graph | ./campus testdata/graph_empty, menus 3, 4, 5
+   Expected: "No buildings are loaded." with zero totals, no crash
+   Actual:   matches
+   PASS
+
+---------------- 10.4 TREE, REPORTS, MENU ----------------
+
+Member C --- tree tests (empty tree, root-only, search, add, preorder)
+
+B16 | Invalid menu input | blank, "abc", "42", "-1", "5 x"
+   Expected: error each time, menu recovers
+   Actual:   "Error: invalid choice. Enter a number from 0 to 9." x5, menu redisplayed
+   PASS
+
+B17 | Blank name at BFS prompt | menu 5, ""
+   Expected: error, return to menu
+   Actual:   "Error: name cannot be blank."
+   PASS
+
+B18 | Repeated operations after errors | errors above followed by menu 5 / 3 / 0
+   Expected: later operations still work; 0 exits cleanly
+   Actual:   matches
+   PASS
+
+B19 | End of input without 0 | printf '3\n' | ./campus
+   Expected: no infinite loop
+   Actual:   prints Goodbye and exits
+   PASS
