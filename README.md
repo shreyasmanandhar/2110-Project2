@@ -1,5 +1,5 @@
 # Overview
-**Foundations of Data Structures CSCE 2110 - Project 1, <ins>Milestone 1</ins>**
+**Foundations of Data Structures CSCE 2110 - Project 1 [Smart Campus Navigation and Facility Analytics System] - <ins>Milestone 1</ins>**
 
 This project is intended to design a program that models a university campus. It loads buildings, building connections, facilities, and academic departments from text files, then lets the user explore them through a menu-driven command-line interface.
 
