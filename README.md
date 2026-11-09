@@ -7,17 +7,17 @@ The project applies data structures and algorithms: a hash table with separate c
 
 ## Functionality Description
 
-### main.cpp: It loads all data files at startup, then runs a menu loop until the user shooses to exits.
+* main.cpp: It loads all data files at startup, then runs a menu loop until the user shooses to exits.
 
-### Facilities: Facilities, HashTable, and Chain (SeparateChaining) store facilities in a hash table of 11 buckets. Collisions are handled with separate chaining, where each bucket is a linked list. Facility IDs are stored in uppercase, so searches are not case-sensitive. A facility is accepted only if its building exists in the campus graph and its ID is not already in the table.
+* Facilities: Facilities, HashTable, and Chain (SeparateChaining) store facilities in a hash table of 11 buckets. Collisions are handled with separate chaining, where each bucket is a linked list. Facility IDs are stored in uppercase, so searches are not case-sensitive. A facility is accepted only if its building exists in the campus graph and its ID is not already in the table.
 
-### Campus Graph: CampusGraph stores buildings as vertices and connections as undirected edges in an adjacency list. It can print each building with its neighbors, a degree table with totals, and a breadth-first search (BFS) that lists every building reachable from a chosen building along with its distance.
+* Campus Graph: CampusGraph stores buildings as vertices and connections as undirected edges in an adjacency list. It can print each building with its neighbors, a degree table with totals, and a breadth-first search (BFS) that lists every building reachable from a chosen building along with its distance.
 
-### Department Tree: DepartmentTree stores departments as a general tree. Each department has one parent and any number of children, and the first department added becomes the root. It supports adding a department, looking one up (parent, number of direct children, depth), printing the indented hierarchy, and a preorder traversal. Department names are not case-sensitive and must be unique.
+* Department Tree: DepartmentTree stores departments as a general tree. Each department has one parent and any number of children, and the first department added becomes the root. It supports adding a department, looking one up (parent, number of direct children, depth), printing the indented hierarchy, and a preorder traversal. Department names are not case-sensitive and must be unique.
 
-### Utilities: This is an additional feature implemented through Utils which we planned to create for the ease of teh team. Utils provides shared helpers for trimming text, case-insensitive comparison, splitting fields, skipping blank and comment lines, and printing load warnings.
+* Utilities: This is an additional feature implemented through Utils which we planned to create for the ease of teh team. Utils provides shared helpers for trimming text, case-insensitive comparison, splitting fields, skipping blank and comment lines, and printing load warnings.
 
-#### Input Handling: Invalid lines in a data file are skipped with a warning that names the file and line number. A missing file is reported and treated as empty. Menu input is validated, and invalid choices return to the menu.
+* Input Handling: Invalid lines in a data file are skipped with a warning that names the file and line number. A missing file is reported and treated as empty. Menu input is validated, and invalid choices return to the menu.
 
 ## Project Structure (Primary files only)
 
