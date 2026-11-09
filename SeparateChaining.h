@@ -18,9 +18,14 @@ struct Node{
 class Chain{
 
     public:
-    
+
     //constructor
     Chain();
+
+    ~Chain();
+
+    Chain(const Chain&) = delete;
+    Chain& operator=(const Chain&) = delete;
 
     //destructor
     void RemoveChain();
@@ -32,10 +37,12 @@ class Chain{
     bool isEmpty() const;
 
     //search for ID in chain
-    Facilities* searchID(string inputID);
+    Facilities* searchID(std::string inputID);
 
     //check for duplicate
-    bool isDuplicate(string tempID);
+    bool isDuplicate(std::string tempID);
+
+    void printAll() const;
 
     private:
 
