@@ -39,17 +39,13 @@ B7 | [extra, Final 10.1] Self-connection, empty field, CRLF, whitespace, # in na
    Actual:   line 11 self-connection; line 9 empty name; buildings 5 accepted; "Room #5 Hall" and "Science Building" connected
    PASS
 
-Member A --- add facility loading tests (dup IDs by case, unknown building) here
-
 A6 | duplicate ID differ by capitalization on load of facilities | f001|Main Reading 	Room|Library|Library
 	Expected: Not accepted, duplicate ID -> F001|Main Reading Room|Library|Library
 	Actual: Not accepted, duplicate ID -> F001|Main Reading Room|Library|Library
 	PASS
 
-
-Member C --- add department loading tests (unknown parent) here
-
 ---------------- 10.2 HASH TABLE AND SEARCH ----------------
+
 A1 | lowercase search | f001 
 	Expected: Found -> F001|Main Reading Room|Library|Library
 	Actual: Found -> F001|Main Reading Room|Library|Library
@@ -79,8 +75,6 @@ A5 | duplicate key attempt | F001|Main Reading Room|Library|Library
 	Expected: Not accepted, duplicate ID -> F001|Main Reading Room|Library|Library
 	Actual: Not accepted, duplicate ID -> F001|Main Reading Room|Library|Library
 	PASS
-
-
 
 ---------------- 10.3 GRAPH AND BFS ----------------
 
@@ -127,7 +121,97 @@ B15 | Empty graph | ./campus testdata/graph_empty, menus 3, 4, 5
 
 ---------------- 10.4 TREE, REPORTS, MENU ----------------
 
-Member C --- tree tests (empty tree, root-only, search, add, preorder)
+SHREYAS MANANDHAR - Tree Tests
+
+C1 | Empty tree
+   Prompt to run: ./test_output testdata/M1_testdata/empty_tree
+   Menu Option: 6
+   Expected: The program will not ask for parent
+   Actual:
+	   Enter department name: university
+	   Added department "university" as the root.
+   Conclusion: The program works as expected
+   PASS
+
+C2 | Tree with only root
+   Prompt to run: ./test_output testdata/M1_testdata/root_only_tree
+   Menu Option: 7 (Search for University)
+   Expected: The program will display University with None parent, 0 children, 0 depth
+   Actual:
+	   Enter department name: University
+	   Name: University
+	   Parent: None
+	   Direct children: 0
+	   Depth: 0
+   Conclusion: The program works as expected
+   PASS
+
+C3 | Searching Root
+   Prompt to run: ./test_output
+   Menu Option: 7 (Search for University)
+   Expected: The program will display root and its details
+   Actual:
+	   Enter department name: University
+	   Name: University
+	   Parent: None
+	   Direct children: 2
+	   Depth: 0
+   Conclusion: The program works as expected
+   PASS
+
+C4 | Searching Non-Root Department
+   Prompt to run: ./test_output
+   Menu Option: 7 (Search for Computer Science)
+   Expected: The program will display non-root and its details
+   Actual:
+	   Enter department name: Computer Science
+	   Name: Computer Science
+	   Parent: College of Engineering
+	   Direct children: 0
+	   Depth: 2
+   Conclusion: The program works as expected
+   PASS
+
+C5 | Searching Department that does not exist
+   Prompt to run: ./test_output
+   Menu Option: 7 (Search for Mechanical Engineering)
+   Expected: The program will provide output saying department is not found
+   Actual:
+	   Enter department name: Mechanical Engineering
+	   Department "Mechanical Engineering" not found.
+   Conclusion: The program works as expected
+   PASS
+
+C6 | Adding Department with Unknown Parent
+   Prompt to run: ./test_output
+   Menu Option: 6 (Add artificial intelligence with unknown parent)
+   Expected: The program will provide error
+   Actual:
+	   Enter department name: Artificial Intelligence
+	   Enter parent department: College of Ai
+	   Error: Parent "College of Ai" is UNKNOWN.
+   Conclusion: The program works as expected
+   ERROR (PASS)
+
+C7 | Adding Duplicate Department
+   Prompt to run: ./test_output
+   Menu Option: 6
+   Expected: The program will provide error
+   Actual:
+	   Enter department name: computer science
+	   Enter parent department: college of engineering
+	   Error: Department "computer science" already exists.
+   Conclusion: The program works as expected
+   ERROR (PASS)
+
+C8 | Verify Preorder
+   Prompt to run: ./test_output
+   Menu Option: 9
+   Expected: The program will provide departments in preorder
+   Actual:
+	   Preorder: University, College of Engineering, Computer Science, Electrical Engineering, College of Science, Mathematics, Physics
+   Conclusion: The program works as expected
+   PASS
 
 B16 | Invalid menu input | blank, "abc", "42", "-1", "5 x"
    Expected: error each time, menu recovers

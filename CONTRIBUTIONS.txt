@@ -1,0 +1,14 @@
+Contributions - Milestone 1
+
+Samuel Smethers
+I completed the files Facilities.h/.cpp to store facility objects on load. I also completed the HashTable.h/.cpp with accompanying files SeparateChaining.h/cpp to create the hash table and linked lists for the buckets in the table. I did partial integration with main but received help from team with full integration. I ran tests on the hashing functions and recorded them in the test results file and described the hashing functions in the design document. I contributed to GitHub with these files and assisting others with approval and merging.
+
+Jake Williamson:
+include/CampusGraph.h, src/CampusGraph.cpp
+include/Utils.h, src/Utils.cpp
+src/main.cpp
+testdata/graph_*, testdata/missing_connections
+graph sections of design_document.txt and test_results.txt
+
+Shreyas Manandhar:
+I implemented a general tree for the department hierarchy. Each node of the tree keeps a pointer to its parent and a vector of children. It makes it efficient because the depth and the parent can be found without explicit search from the root. I wrote DepartmentTree.h/.cpp which had the Departments.txt loader. I also coded validation rules which define that root's parent must be NONE, name should be unique and case-insensitive, NONE cannot be used as a name. I implemented addition of a department, case-insensitive search, hierarchy display, and preorder traversal using recursion for traversals. The deleting of tree nodes also used recursion. I tested my portion as well as the whole program in a CELL machine.
