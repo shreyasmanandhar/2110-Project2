@@ -1,4 +1,5 @@
 //DepartmentTree.cpp
+//SHREYAS MANANDHAR
 //function definition file for tree
 
 #include "DepartmentTree.h"
@@ -72,6 +73,11 @@ bool DepartmentTree::addDepartment(const string& name, const string& parentName,
     //invalid empty input
     if (deptName.empty()){
         error = "Department name cannot be blank.";
+        return false;
+    }
+
+    if (equalsIgnoreCase(deptName, "NONE")){
+        error = "Department name \"NONE\" is reserved.";
         return false;
     }
 

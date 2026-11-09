@@ -1,4 +1,5 @@
 //DepartmentTree.h
+//Author: SHREYAS MANANDHAR
 //Header file for tree functions
 
 #ifndef DEPARTMENTTREE_H
@@ -24,6 +25,9 @@ class DepartmentTree{
     public:
         DepartmentTree();       //constructor
         ~DepartmentTree();      //destructor to free each node
+
+        DepartmentTree(const DepartmentTree&) = delete;
+        DepartmentTree& operator=(const DepartmentTree&) = delete;
 
         //loading the departments.txt file
         void loadDepartments(const std::string& path);
@@ -59,7 +63,7 @@ class DepartmentTree{
         void printHierarchy(const DepartmentNode* node, int depth) const;
         
         //to support displayPreorder from public
-        void setupPreorder(const DepartmentNode* node, std::vector<std::string>& result) const;
+        void collectPreorder(const DepartmentNode* node, std::vector<std::string>& result) const;
 };
 
 #endif
