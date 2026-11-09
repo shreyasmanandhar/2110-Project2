@@ -6,7 +6,6 @@
 
 #include <iostream>
 #include <string>
-using namespace std;
 
 class Facilities{
 
@@ -16,29 +15,29 @@ class Facilities{
         Facilities();
 
         //getters
-        string getID() const;
-        string getFacName() const;
-        string getBuildName() const;
-        string getCat() const;
+        std::string getID() const;
+        std::string getFacName() const;
+        std::string getBuildName() const;
+        std::string getCat() const;
 
         //setters
-        void setID(string input);
-        void setFacName(string input);
-        void setBuildName(string input);
-        void setCat(string input);
+        void setID(std::string input);
+        void setFacName(std::string input);
+        void setBuildName(std::string input);
+        void setCat(std::string input);
 
         //copy constructor
         Facilities& operator=(const Facilities& rhs);
 
         //display
-        void displayFac();
+        void displayFac() const;
 
     private:
 
-        string facilityID;
-        string facilityName;
-        string buildingName;
-        string category;
+        std::string facilityID;
+        std::string facilityName;
+        std::string buildingName;
+        std::string category;
 };
 
 #endif
