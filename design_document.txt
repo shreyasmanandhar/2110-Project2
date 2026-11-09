@@ -1,0 +1,62 @@
+Design Document - Milestone 1
+
+1. HASH FUNCTION / COLLISIONS (Samuel Smethers)
+Design: The hash function takes the ID of the input and converts it to a large positive number and uses the modulus to bring it into bounds for assigning to an index variable. It does this by starting with a variable and multiplying it by 31 then adding the ascii value of the character in the first location, then it loops and multiplies that updated variable and adds the value of the next character, it continues this process until the end of the string. Once it has this value it uses the modulus operation to find the remainder and save this value as an integer to the index variable. The function uses 31 as the multiplier and 11 as the modulus because prime numbers help to maintain variety and spread the results across the table. The collision strategy is separate chaining which creates a linked list at the location of a collision. I chose this because it will keep all inputs and dynamically grow, and since the hash strategy is good at spreading the results the linked lists shouldn't get too long and slow the search process. It counts collisions by checking the index of the potential new storage to see if it has a value already. If it does already have a value it then adds to the collision count and starts the chain. The hash table has 11 buckets to store pointers to a facility, if a bucket is accessed and already stores a value then the table will create a chain at that bucket location to store the new facility after the one already stored in that location, this maintains the 11 bucket capacity overall because it will always store a proper input, it will just add to the search time if a chain becomes to long in a bucket.
+
+===
+
+2. CAMPUS GRAPH (Jake Williamson)
+Representation: adjacency list.
+  names: vector<string>         building spelling, file order (index = vertex id)
+  adj: vector<vector<int>>      neighbor ids, connection insertion order
+  edges: int                    undirected edges, counted once
+
+Why adjacency list:
+  - sparse campus graph; memory O(V + E) vs O(V^2) for a matrix
+  - neighbor order is preserved naturally, which fixes BFS visit order
+  - degree = adj[i].size()
+
+Loading:
+  buildings.txt         reject wrong field count, empty, duplicate (case-insensitive)
+  connections.txt       reject wrong field count, empty, unknown building, self-connection, duplicate (incl. reversed A|B vs B|A)
+  Each accepted edge is pushed to both endpoints; edges += 1.
+
+Lookup: findBuilding() trims input and does a case-insensitive linear scan.
+Returns the vertex id; display always uses the buildings.txt spelling.
+
+BFS: std::queue + vector<bool> visited. A vertex is marked visited when
+enqueued. dist[v] = dist[parent] + 1. Visit order follows neighbor
+insertion order. The same graph is used for display, counts, and BFS.
+
+===
+
+3. DEPARTMENT TREE (Shreyas Manandhar)
+
+## Overview: This program uses a general tree; not a binary tree; i.e. (n-ary) tree. A DepartmentNode holds its name, a parent pointer, and a vector for child pointers. DepartmentTree has the root pointer.
+
+## Rules:
+- The first valid department becomes the root. In an external file that is read, the root's parent must be NONE and no other department may use NONE as a parent.
+- All department names are unique and case-insensitive. NONE cannot be used as a department name.
+- Every non-root department mandatorily requires an existing parent.
+
+## Operations:
+- findNode: it is a recursive preorder search running on O(n).
+- addDepartment: it validates the name, finds the parent, checks for a duplicate, appends the new node to the parent's children. It also runs on O(n).
+- getDepth: it travels parent pointers up to the root and runs on O(depth). The parent pointer also lets the display show a department's parent without a search.
+- displayHierarchy: it is a recursive function that return hierarchy with indented 4 spaces per depth level.
+- displayPreorder: it visits a node then each child, collects name into a vector and prints them. The runtime complexity is O(n).
+- Destructor: it is implemented through deleteTree and frees every child recursively, and finally the node.
+
+===
+
+4. MAIN CLASSES / MODULES
+
+  *main.cpp        (shared) data dir arg, load order, menu. It is the main file that loads the data files and runs the menu loop. The data folder defaults to "data/" and can be passed as an argument. Menu input is verified/validated and the end of input or user's choice to exit completes the program.
+
+  *HashTable
+
+  *CampusGraph     (Jake) graph load, display, degrees, BFS
+
+  *DepartmentTree  (Shreyas) Department hierarchy and its traversals; all functions are listed in section 3 of this document
+
+  *Utils           (shared) trim, case helpers, field split, warning/summary output. It is an added functionality to aid the whole team with their sub-features and prevent any redundant block of coding. For example, there is no need for repeated validation/verification of inputs, files and changing or converting of lowercase and uppercase characters.
