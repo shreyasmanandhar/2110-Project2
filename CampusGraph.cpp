@@ -1,6 +1,6 @@
 //CampusGraph.cpp
 //Purpose: undirected campus graph (adjacency list) and BFS.
-//Author: Member B
+//Author: Jake Williamson
 
 #include "CampusGraph.h"
 #include "Utils.h"
