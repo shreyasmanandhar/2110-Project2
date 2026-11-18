@@ -1,6 +1,6 @@
 //CampusGraph.h
 //Purpose: undirected campus graph (adjacency list) and BFS.
-//Author: Member B
+//Author: Jake Williamson
 
 #ifndef CAMPUSGRAPH_H
 #define CAMPUSGRAPH_H
