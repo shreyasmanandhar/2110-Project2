@@ -1,8 +1,6 @@
 //Utils.h
 //Purpose: shared string and file-loading helpers.
-//Author: Member B (shared)
-//Member A --- use these in the facilities loader
-//Member C --- use these in the departments loader
+//Author: Jake Williamson
 
 #ifndef UTILS_H
 #define UTILS_H
