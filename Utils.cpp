@@ -1,6 +1,6 @@
 // Utils.cpp
 // Purpose: shared string and file-loading helpers.
-// Author: Member B (shared)
+// Author: Jake Williamson
 
 #include "Utils.h"
 #include <cctype>
